@@ -70,6 +70,25 @@
 .scene-north { top: 17px; left: 17px; }
 .scene-south { bottom: 14px; left: 50%; transform: translateX(-50%); white-space: nowrap; color: #718578; font-size: 7px; }
 
+.scene-map-art {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.scene-map-labels {
+  fill: #54725d;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  paint-order: stroke;
+  stroke: #f5f8ee;
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
 .scene-compass {
   position: absolute;
   right: 15px;
@@ -89,6 +108,7 @@
 
 .map-ground {
   position: absolute;
+  z-index: 1;
   left: 50%;
   top: 51%;
   width: min(72%, 440px);
@@ -100,7 +120,7 @@
   gap: 7px;
   border: 6px solid #f5eddd;
   border-radius: 7px;
-  background: #78827d;
+  background: transparent;
   box-shadow: 12px 15px 0 #78927c, 0 18px 30px #45604735, inset 0 0 0 2px #ffffff55;
   transform: translate(-50%, -50%) rotate(45deg) scale(.74);
   transform-origin: center;
