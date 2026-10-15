@@ -1,0 +1,192 @@
+/* Planning-board layout inspired by illustrated city-planning interfaces. */
+.sim-layout {
+  display: grid;
+  grid-template-columns: minmax(205px, .72fr) minmax(0, 1.7fr) minmax(225px, .78fr);
+  grid-template-areas: "build map metrics" "build challenge metrics";
+  gap: 15px;
+  align-items: stretch;
+}
+
+.sim-main,
+.sim-side {
+  display: contents;
+}
+
+.map-panel { grid-area: map; min-width: 0; }
+.build-panel { grid-area: build; align-self: stretch; }
+.metrics-panel { grid-area: metrics; align-self: start; }
+.challenge-strip { grid-area: challenge; align-self: start; }
+
+.map-panel {
+  padding: 20px 22px 16px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.map-scale {
+  color: #587061;
+  background: #edf6ef;
+}
+
+.map-scene {
+  position: relative;
+  width: 100%;
+  height: clamp(390px, 42vw, 470px);
+  max-width: none;
+  margin: 15px auto 12px;
+  padding: 0;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid #d9e6e8;
+  border-radius: 13px;
+  background:
+    radial-gradient(ellipse at 16% 86%, #b9d7ad 0 10%, transparent 10.5%),
+    radial-gradient(ellipse at 83% 78%, #b7d5a8 0 12%, transparent 12.5%),
+    radial-gradient(ellipse at 78% 17%, #c7dfba 0 9%, transparent 9.5%),
+    linear-gradient(180deg, #dcecf0 0%, #eef4e7 66%, #e6efdc 100%);
+}
+
+.scene-sun {
+  position: absolute;
+  top: 34px;
+  right: 17%;
+  z-index: 0;
+  color: #f4b928;
+  font-size: 36px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 0 #fff7);
+}
+
+.scene-label {
+  position: absolute;
+  z-index: 2;
+  color: #597667;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.scene-label span { color: #d39b22; }
+.scene-north { top: 17px; left: 17px; }
+.scene-south { bottom: 14px; left: 50%; transform: translateX(-50%); white-space: nowrap; color: #718578; font-size: 7px; }
+
+.scene-compass {
+  position: absolute;
+  right: 15px;
+  top: 14px;
+  z-index: 2;
+  width: 28px;
+  height: 37px;
+  border-radius: 14px;
+  background: #ffffffb8;
+  color: #526779;
+  text-align: center;
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 15px;
+  padding-top: 3px;
+}
+
+.map-ground {
+  position: absolute;
+  left: 50%;
+  top: 51%;
+  width: min(72%, 440px);
+  aspect-ratio: 1;
+  margin: 0;
+  padding: 8px;
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 4px;
+  border: 5px solid #f5eddd;
+  border-radius: 7px;
+  background: #d6c4a0;
+  box-shadow: 12px 15px 0 #78927c, 0 18px 30px #45604735;
+  transform: translate(-50%, -50%) rotate(45deg) scale(.74);
+  transform-origin: center;
+}
+
+.map-ground .tile {
+  min-width: 0;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid #ffffffc9;
+  border-radius: 3px;
+  box-shadow: 0 2px 0 #263b3024;
+  font-size: clamp(10px, 1.15vw, 16px);
+  transition: filter .16s, box-shadow .16s;
+}
+
+.map-ground .tile:hover {
+  z-index: 2;
+  transform: translateY(-3px) scale(1.08);
+  filter: brightness(1.08);
+  box-shadow: 0 5px 7px #263b3050;
+}
+
+.map-ground .tile-graphic {
+  display: block;
+  transform: rotate(-45deg);
+  line-height: 1;
+}
+
+.map-ground .tile.selected {
+  z-index: 3;
+  outline: 3px solid #f59e0b;
+  outline-offset: 1px;
+  box-shadow: 0 0 0 5px #ffffffbd, 0 5px 10px #263b3050;
+}
+
+.map-ground .tile-built {
+  width: 6px;
+  height: 6px;
+  bottom: 1px;
+  right: 1px;
+}
+
+.legend {
+  gap: 8px 12px;
+  padding-top: 12px;
+}
+
+.legend span { font-size: 9px; }
+.selected-tile { background: #f0f7ef; }
+.selected-tile b { color: #2f6942; }
+
+.build-panel .building-list { max-height: 525px; }
+.build-panel .building-option { padding: 11px 8px; }
+.build-panel .building-icon { background: #f1f6ef; }
+
+@media (max-width: 1050px) {
+  .sim-layout {
+    grid-template-columns: minmax(0, 1.6fr) minmax(255px, .8fr);
+    grid-template-areas: "map metrics" "challenge metrics" "build build";
+  }
+  .build-panel .building-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-height: 350px;
+  }
+  .map-scene { height: 430px; }
+}
+
+@media (max-width: 700px) {
+  .sim-layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "map" "challenge" "build" "metrics";
+  }
+  .map-panel { padding: 15px 12px; }
+  .map-scene { height: min(105vw, 390px); min-height: 330px; }
+  .map-ground { width: min(72%, 320px); transform: translate(-50%, -50%) rotate(45deg) scale(.7); }
+  .scene-sun { top: 38px; right: 12%; font-size: 30px; }
+  .build-panel .building-list { grid-template-columns: 1fr; max-height: 380px; }
+  .challenge-strip { align-items: center; }
+}
+
+@media (max-width: 420px) {
+  .map-scene { min-height: 310px; }
+  .map-ground { width: 76%; padding: 6px; gap: 3px; transform: translate(-50%, -50%) rotate(45deg) scale(.68); }
+  .scene-north { top: 14px; left: 12px; font-size: 7px; }
+  .scene-south { font-size: 6px; }
+  .map-ground .tile { font-size: 10px; }
+}
