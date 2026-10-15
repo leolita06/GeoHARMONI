@@ -97,13 +97,40 @@
   padding: 8px;
   display: grid;
   grid-template-columns: repeat(10, minmax(0, 1fr));
-  gap: 4px;
-  border: 5px solid #f5eddd;
+  gap: 7px;
+  border: 6px solid #f5eddd;
   border-radius: 7px;
-  background: #d6c4a0;
-  box-shadow: 12px 15px 0 #78927c, 0 18px 30px #45604735;
+  background: #78827d;
+  box-shadow: 12px 15px 0 #78927c, 0 18px 30px #45604735, inset 0 0 0 2px #ffffff55;
   transform: translate(-50%, -50%) rotate(45deg) scale(.74);
   transform-origin: center;
+}
+
+.map-ground::before,
+.map-ground::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  opacity: .84;
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px #f8f2df;
+}
+
+.map-ground::before {
+  left: -3%;
+  top: 44%;
+  width: 106%;
+  height: 13px;
+  background: repeating-linear-gradient(90deg, #77817d 0 20px, #eee2b8 20px 23px, #77817d 23px 40px);
+}
+
+.map-ground::after {
+  left: 65%;
+  top: -3%;
+  width: 13px;
+  height: 106%;
+  background: repeating-linear-gradient(180deg, #77817d 0 20px, #eee2b8 20px 23px, #77817d 23px 40px);
 }
 
 .map-ground .tile {
@@ -112,7 +139,9 @@
   padding: 0;
   border: 1px solid #ffffffc9;
   border-radius: 3px;
-  box-shadow: 0 2px 0 #263b3024;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 3px 0 #53675245;
   font-size: clamp(10px, 1.15vw, 16px);
   transition: filter .16s, box-shadow .16s;
 }
@@ -177,7 +206,7 @@
   }
   .map-panel { padding: 15px 12px; }
   .map-scene { height: min(105vw, 390px); min-height: 330px; }
-  .map-ground { width: min(72%, 320px); transform: translate(-50%, -50%) rotate(45deg) scale(.7); }
+  .map-ground { width: min(72%, 320px); gap: 5px; transform: translate(-50%, -50%) rotate(45deg) scale(.7); }
   .scene-sun { top: 38px; right: 12%; font-size: 30px; }
   .build-panel .building-list { grid-template-columns: 1fr; max-height: 380px; }
   .challenge-strip { align-items: center; }
@@ -185,7 +214,7 @@
 
 @media (max-width: 420px) {
   .map-scene { min-height: 310px; }
-  .map-ground { width: 76%; padding: 6px; gap: 3px; transform: translate(-50%, -50%) rotate(45deg) scale(.68); }
+  .map-ground { width: 76%; padding: 6px; gap: 4px; transform: translate(-50%, -50%) rotate(45deg) scale(.68); }
   .scene-north { top: 14px; left: 12px; font-size: 7px; }
   .scene-south { font-size: 6px; }
   .map-ground .tile { font-size: 10px; }
